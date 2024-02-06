@@ -1,0 +1,27 @@
+name: Запуск
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Тег образа
+        required: false
+        default: latest
+      number1:
+        description: Первое число
+        required: true
+      number2:
+        description: Второе число
+        required: true
+jobs:
+  run_container:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачивание образа из Docker Hub
+        run: |
+          image_name="${{ secrets.docker_username }}/${{ github.event.repository.name }}"
+          docker pull "$image_name:${{ github.event.inputs.tag }}"
+      - name: Запуск контейнера
+        run: |
+          docker run "$image_name:${{ github.event.inputs.tag }}" ${{ github.event.inputs.number1 }} ${{ github.event.inputs.number2 }}
