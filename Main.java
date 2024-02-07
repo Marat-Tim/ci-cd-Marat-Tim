@@ -17,6 +17,7 @@ public class Main {
                 return;
             }
             int b = scanner.nextInt();
+            System.out.println("Hello world");
             System.out.println(a + b);
         }
     }
