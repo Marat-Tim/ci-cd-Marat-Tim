@@ -18,10 +18,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Подготовка окружения
+        run: |
+          image_name=$(echo "${{ secrets.docker_username }}/${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          echo "image_name=$image_name" >> "$GITHUB_ENV"
       - name: Скачивание образа из Docker Hub
-        run: |
-          image_name="${{ secrets.docker_username }}/${{ github.event.repository.name }}"
-          docker pull "$image_name:${{ github.event.inputs.tag }}"
+        run: docker pull "$image_name:${{ github.event.inputs.tag }}"
       - name: Запуск контейнера
-        run: |
-          docker run "$image_name:${{ github.event.inputs.tag }}" ${{ github.event.inputs.number1 }} ${{ github.event.inputs.number2 }}
+        run: docker run "$image_name:${{ github.event.inputs.tag }}" ${{ github.event.inputs.number1 }} ${{ github.event.inputs.number2 }}
