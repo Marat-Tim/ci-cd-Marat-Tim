@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "$image_name:$image_tag"
           docker push "$image_name:$image_tag"
-          if [[ "${{ github.ref }}" == "refs/head/main" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             docker tag "$image_name:$image_tag" "$image_name:latest"
             docker push "$image_name:latest"
           fi
