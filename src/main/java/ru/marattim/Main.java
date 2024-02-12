@@ -1,3 +1,5 @@
+package ru.marattim;
+
 import java.util.Scanner;
 
 public class Main {
