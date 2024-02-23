@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: ""
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -75,14 +75,14 @@ livenessProbe:
   httpGet:
     path: /actuator/health
     port: 8080
-  initialDelaySeconds: 90
+  initialDelaySeconds: 60
   timeoutSeconds: 5
   periodSeconds: 10
 readinessProbe:
   httpGet:
     path: /actuator/health
     port: 8080
-  initialDelaySeconds: 90
+  initialDelaySeconds: 60
   timeoutSeconds: 5
   periodSeconds: 10
 
