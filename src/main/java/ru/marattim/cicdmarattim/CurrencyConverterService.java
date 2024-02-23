@@ -19,7 +19,7 @@ public class CurrencyConverterService {
                 .get().uri("/rates").retrieve().bodyToMono(RatesResponse.class).block();
         //noinspection DataFlowIssue
         var rates = response.getRates();
-        return new MoneyDto(to, amount.multiply(rates.get(to.getValue())).divide(rates.get(from.getValue()),
+        return new MoneyDto(to, amount.multiply(rates.get(from.getValue())).divide(rates.get(to.getValue()),
                 2, RoundingMode.HALF_EVEN));
     }
 }
