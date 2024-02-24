@@ -12,8 +12,13 @@ jobs:
   build_and_push:
     runs-on: ubuntu-latest
 
+    outputs:
+      image_name: ${{ steps.prepare_env.outputs.image_name }}
+      image_tag: ${{ steps.prepare_env.outputs.image_tag }}
+
     steps:
       - name: Подготовка окружения
+        id: prepare_env
         run: |
           if [ -n "${{ github.head_ref }}" ]; then
             branch=${{ github.head_ref }}
@@ -28,6 +33,9 @@ jobs:
           
           image_tag=$(echo "$branch-$sha" | tr '[:upper:]' '[:lower:]')
           echo "image_tag=$image_tag" >> "$GITHUB_ENV"
+          
+          echo "image_name=$image_name" >> "$GITHUB_OUTPUT"
+          echo "image_tag=$image_tag" >> "$GITHUB_OUTPUT"
       - name: Checkout репозитория
         uses: actions/checkout@v2
       - name: Установка JDK
@@ -56,4 +64,4 @@ jobs:
     with:
       chart-path: ./helm # путь к чарту из второй дз
       image-name: marattim/ci-cd-marat-tim # имя образа вашего приложения
-      image-tag: latest # таг образа, который собран в рамках данного ПРа
+      image-tag: ${{ needs.build_and_push.outputs.image_tag }} # таг образа, который собран в рамках данного ПРа
