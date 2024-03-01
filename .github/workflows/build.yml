@@ -63,5 +63,5 @@ jobs:
     uses: central-university-dev/hse-ab-cicd-hw/.github/workflows/autotests.yml@main
     with:
       chart-path: ./helm # путь к чарту из второй дз
-      image-name: marattim/ci-cd-marat-tim # имя образа вашего приложения
+      image-name: ${{ needs.build_and_push.outputs.image_name }} # имя образа вашего приложения
       image-tag: ${{ needs.build_and_push.outputs.image_tag }} # таг образа, который собран в рамках данного ПРа
