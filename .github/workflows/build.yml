@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      image_name: ${{ steps.prepare_env.outputs.image_name }}
       image_tag: ${{ steps.prepare_env.outputs.image_tag }}
 
     steps:
@@ -34,7 +33,6 @@ jobs:
           image_tag=$(echo "$branch-$sha" | tr '[:upper:]' '[:lower:]')
           echo "image_tag=$image_tag" >> "$GITHUB_ENV"
           
-          echo "image_name=$image_name" >> "$GITHUB_OUTPUT"
           echo "image_tag=$image_tag" >> "$GITHUB_OUTPUT"
       - name: Checkout репозитория
         uses: actions/checkout@v2
@@ -63,5 +61,5 @@ jobs:
     uses: central-university-dev/hse-ab-cicd-hw/.github/workflows/autotests.yml@main
     with:
       chart-path: ./helm # путь к чарту из второй дз
-      image-name: ${{ needs.build_and_push.outputs.image_name }} # имя образа вашего приложения
+      image-name: marattim/ci-cd-marat-tim # имя образа вашего приложения
       image-tag: ${{ needs.build_and_push.outputs.image_tag }} # таг образа, который собран в рамках данного ПРа
