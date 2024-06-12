@@ -58,7 +58,7 @@ jobs:
 
   autotest:
     needs: build_and_push # имя вашей основной джобы сборки
-    uses: central-university-dev/hse-ab-cicd-hw/.github/workflows/autotests.yml@main
+    uses: Marat-Tim/ci-cd-Marat-Tim/.github/workflows/autotests.yml@main
     with:
       chart-path: ./helm # путь к чарту из второй дз
       image-name: marattim/ci-cd-marat-tim # имя образа вашего приложения
