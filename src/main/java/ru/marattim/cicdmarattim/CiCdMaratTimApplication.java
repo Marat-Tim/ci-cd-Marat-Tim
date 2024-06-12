@@ -14,6 +14,7 @@ public class CiCdMaratTimApplication {
         return WebClient.create(ratesUrl);
     }
 
+
     public static void main(String[] args) {
         SpringApplication.run(CiCdMaratTimApplication.class, args);
     }
