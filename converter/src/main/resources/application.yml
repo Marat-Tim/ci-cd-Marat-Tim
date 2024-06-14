@@ -1,2 +1,2 @@
 rates:
-  url: http://rates:8080
+  url: ${RATES_URL}

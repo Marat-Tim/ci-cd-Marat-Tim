@@ -1,4 +1,4 @@
-package ru.marattim.converter.dto;
+package ru.marattim.common.dto;
 
 import org.openapitools.model.Currency;
 

@@ -5,7 +5,7 @@ import org.openapitools.model.Currency;
 import org.openapitools.model.RatesResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import ru.marattim.converter.dto.MoneyDto;
+import ru.marattim.common.dto.MoneyDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

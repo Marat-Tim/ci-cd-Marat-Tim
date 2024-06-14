@@ -111,3 +111,25 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+extraEnv:
+  - name: DB_HOST
+    value: localhost
+  - name: DB_PORT
+    value: 5432
+  - name: DB_NAME
+    value: tinkoff
+  - name: DB_USER
+    value: postgres
+  - name: DB_PASSWORD
+    value: sa
+  - name: CONVERTER_URL
+    value: http://converter:8080
+  - name: KEYCLOAK_URL
+    value: http://keycloak-keycloakx-http
+  - name: KEYCLOAK_REALM
+    value: hse
+  - name: CLIENT_ID
+    value: hse_converter
+  - name: CLIENT_SECRET
+    value: ZLM7AmkwCGsVknmqvbRSJYllwJi4zcGf

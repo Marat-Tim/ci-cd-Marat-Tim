@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.marattim.common.dto.MoneyDto;
 import ru.marattim.converter.dto.ErrorDto;
-import ru.marattim.converter.dto.MoneyDto;
 import ru.marattim.converter.service.CurrencyConverterService;
 
 import java.math.BigDecimal;

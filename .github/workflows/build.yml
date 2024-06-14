@@ -48,6 +48,7 @@ jobs:
         run: |
           cd converter
           docker build -t "marattim/converter:$image_tag" .
+          cd ..
       - name: Push образа converter в Docker Hub
         run: |
           echo "marattim/converter:$image_tag"
@@ -56,11 +57,27 @@ jobs:
             docker tag "marattim/converter:$image_tag" marattim/converter:latest
             docker push marattim/converter:latest
           fi
+      - name: Сборка docker образа accounts
+        run: |
+          cd accounts
+          docker build -t "marattim/accounts:$image_tag" .
+          cd ..
+      - name: Push образа accounts в Docker Hub
+        run: |
+          echo "marattim/accounts:$image_tag"
+          docker push "marattim/accounts:$image_tag"
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            docker tag "marattim/accounts:$image_tag" marattim/accounts:latest
+            docker push marattim/accounts:latest
+          fi
 
   autotest:
-    needs: build_and_push # имя вашей основной джобы сборки
-    uses: Marat-Tim/ci-cd-Marat-Tim/.github/workflows/autotests.yml@main
+    needs: build_and_push
+    uses: evevseev/the-bank-tests/.github/workflows/autotests-hw4.yml@main
     with:
-      chart-path: ./helm # путь к чарту из второй дз
-      image-name: marattim/ci-cd-marat-tim # имя образа вашего приложения
-      image-tag: ${{ needs.build_and_push.outputs.image_tag }} # таг образа, который собран в рамках данного ПРа
+      chart-path: ./helm
+      converter-image-name: marattim/converter
+      accounts-image-name: marattim/accounts
+      image-tag: ${{ needs.build_and_push.outputs.image_tag }}
+    secrets:
+      HSE_LOKI_TOKEN: ${{ secrets.HSE_LOKI_TOKEN }}
