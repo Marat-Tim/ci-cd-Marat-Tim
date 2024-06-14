@@ -27,7 +27,6 @@ jobs:
           
           sha=$(echo "${{ github.sha }}" | cut -c 1-7 | tr '[:upper:]' '[:lower:]')
           
-          image_name=$(echo "${{ secrets.docker_username }}/${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
           echo "image_name=$image_name" >> "$GITHUB_ENV"
           
           image_tag=$(echo "$branch-$sha" | tr '[:upper:]' '[:lower:]')
@@ -43,17 +42,19 @@ jobs:
           distribution: adopt
       - name: Сборка программы
         run: mvn install
-      - name: Сборка docker образа
-        run: docker build -t "$image_name:$image_tag" .
       - name: Авторизация в Docker Hub
         run: docker login -u ${{ secrets.docker_username }} -p ${{ secrets.docker_password }}
-      - name: Push образа в Docker Hub
+      - name: Сборка docker образа converter
         run: |
-          echo "$image_name:$image_tag"
-          docker push "$image_name:$image_tag"
+          cd converter
+          docker build -t "marattim/converter:$image_tag" .
+      - name: Push образа converter в Docker Hub
+        run: |
+          echo "marattim/converter:$image_tag"
+          docker push "marattim/converter:$image_tag"
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            docker tag "$image_name:$image_tag" "$image_name:latest"
-            docker push "$image_name:latest"
+            docker tag "marattim/converter:$image_tag" marattim/converter:latest
+            docker push marattim/converter:latest
           fi
 
   autotest:

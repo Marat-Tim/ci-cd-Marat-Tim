@@ -1,4 +1,4 @@
-package ru.marattim.cicdmarattim;
+package ru.marattim.converter.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.openapitools.model.Currency;
@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.marattim.converter.dto.ErrorDto;
+import ru.marattim.converter.dto.MoneyDto;
+import ru.marattim.converter.service.CurrencyConverterService;
 
 import java.math.BigDecimal;
 
@@ -15,7 +18,7 @@ public class CurrencyConverterController {
     private final CurrencyConverterService currencyConverterService;
 
     @GetMapping("convert")
-    ResponseEntity<Object> convert(@RequestParam("from") String from,
+    public ResponseEntity<Object> convert(@RequestParam("from") String from,
                            @RequestParam("to") String to,
                            @RequestParam("amount") BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {

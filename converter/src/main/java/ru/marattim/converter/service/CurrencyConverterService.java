@@ -1,10 +1,11 @@
-package ru.marattim.cicdmarattim;
+package ru.marattim.converter.service;
 
 import lombok.RequiredArgsConstructor;
 import org.openapitools.model.Currency;
 import org.openapitools.model.RatesResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import ru.marattim.converter.dto.MoneyDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,7 +15,7 @@ import java.math.RoundingMode;
 public class CurrencyConverterService {
     private final WebClient webClient;
 
-    MoneyDto convert(Currency from, Currency to, BigDecimal amount) {
+    public MoneyDto convert(Currency from, Currency to, BigDecimal amount) {
         RatesResponse response = webClient
                 .get().uri("/rates").retrieve().bodyToMono(RatesResponse.class).block();
         //noinspection DataFlowIssue
