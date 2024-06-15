@@ -29,16 +29,10 @@ public class TransferServiceImpl implements TransferService {
         if (sender.getAmount().compareTo(amountInSenderCurrency) < 0) {
             throw new NotEnoughMoneyException();
         }
-        if (receiver.getCurrency() == sender.getCurrency()) {
-            sender.setAmount(sender.getAmount().subtract(amountInSenderCurrency));
-            receiver.setAmount(receiver.getAmount().add(amountInSenderCurrency));
-            accountRepository.saveAll(List.of(sender, receiver));
-        } else {
-            BigDecimal amountInReceiverCurrency =
-                    converterClient.convert(sender.getCurrency(), receiver.getCurrency(), amountInSenderCurrency);
-            sender.setAmount(sender.getAmount().subtract(amountInSenderCurrency));
-            receiver.setAmount(receiver.getAmount().add(amountInReceiverCurrency));
-            accountRepository.saveAll(List.of(sender, receiver));
-        }
+        BigDecimal amountInReceiverCurrency =
+                converterClient.convert(sender.getCurrency(), receiver.getCurrency(), amountInSenderCurrency);
+        sender.setAmount(sender.getAmount().subtract(amountInSenderCurrency));
+        receiver.setAmount(receiver.getAmount().add(amountInReceiverCurrency));
+        accountRepository.saveAll(List.of(sender, receiver));
     }
 }

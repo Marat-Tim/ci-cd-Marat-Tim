@@ -16,6 +16,9 @@ public class CurrencyConverterService {
     private final WebClient webClient;
 
     public MoneyDto convert(Currency from, Currency to, BigDecimal amount) {
+        if (from == to) {
+            return new MoneyDto(to, amount);
+        }
         RatesResponse response = webClient
                 .get().uri("/rates").retrieve().bodyToMono(RatesResponse.class).block();
         //noinspection DataFlowIssue

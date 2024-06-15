@@ -6,4 +6,4 @@ COPY /target/converter.jar /app/converter.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "main.jar"]
+ENTRYPOINT ["java", "-jar", "converter.jar"]

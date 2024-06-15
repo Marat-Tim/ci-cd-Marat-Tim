@@ -40,7 +40,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 8080
 
 ingress:
@@ -75,14 +75,14 @@ livenessProbe:
   httpGet:
     path: /actuator/health
     port: 8080
-  initialDelaySeconds: 60
+  initialDelaySeconds: 140
   timeoutSeconds: 5
   periodSeconds: 10
 readinessProbe:
   httpGet:
     path: /actuator/health
     port: 8080
-  initialDelaySeconds: 60
+  initialDelaySeconds: 140
   timeoutSeconds: 5
   periodSeconds: 10
 

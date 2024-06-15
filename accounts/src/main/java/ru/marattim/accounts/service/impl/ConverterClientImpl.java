@@ -17,6 +17,9 @@ public class ConverterClientImpl implements ConverterClient {
     @Override
     @SuppressWarnings("java:S2259")
     public BigDecimal convert(Currency from, Currency to, BigDecimal amount) {
+        if (from == to) {
+            return amount;
+        }
         //noinspection DataFlowIssue
         return webClient
                 .get()

@@ -25,6 +25,6 @@ public class CustomerEntity {
     @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer")
     private List<AccountEntity> accounts;
 }
