@@ -1,4 +1,6 @@
 spring:
+  mvc:
+    log-request-details: true
   security:
     oauth2:
       client:
@@ -7,7 +9,6 @@ spring:
             provider: keycloak
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-            scope: openid
             authorization-grant-type: client_credentials
         provider:
           keycloak:
@@ -26,9 +27,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 converter:
   url: ${CONVERTER_URL}
+
 logging:
   level:
     org:
       springframework:
         web: DEBUG
         security: DEBUG
+
