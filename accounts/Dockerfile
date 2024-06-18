@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-runtime-container:jdk-17-slim-musl
+FROM amazoncorretto:17
 
 WORKDIR /app
 
